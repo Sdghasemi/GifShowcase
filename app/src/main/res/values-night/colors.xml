@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBackground">#FF000000</color>
+    <color name="colorOnBackground">#CCCCCC</color>
+    <color name="colorSurface">#1E1E1E</color>
+    <color name="colorOnSurface">#999999</color>
+
+    <color name="rating_background">#999999</color>
+    <color name="rating_text">#000000</color>
+</resources>

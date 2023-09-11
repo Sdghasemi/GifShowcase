@@ -1,0 +1,12 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.GifViewer" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="hintTextColor">@color/colorOnSurface</item>
+    </style>
+
+    <style name="Theme.GifViewer" parent="Base.Theme.GifViewer"/>
+</resources>

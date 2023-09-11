@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GIF Showcase</string>
+    <string name="failed_to_connect_to_remote_server">Failed to connect to remote server!</string>
+    <string name="an_error_occurred">An error occurred!</string>
+    <string name="swipe_to_refresh_hint">\nPlease swipe to retry!</string>
+    <string name="search">Search</string>
+    <string name="random_selected_gif">Random selected GIF:</string>
+    <string name="searched_results">Searched results:</string>
+    <string name="gif">Gif</string>
+</resources>

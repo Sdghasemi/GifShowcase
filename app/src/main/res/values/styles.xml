@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.GifViewer.SearchBox" parent="ThemeOverlay.Material3.TextInputEditText">
+        <item name="drawableStartCompat">@drawable/search</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:background">@drawable/search_box_background</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableTint">@color/colorOnSurface</item>
+    </style>
+    <style name="Theme.GifViewer.RatingBadge">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:lines">1</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/rating_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/rating_badge_background</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMinTextSize">12sp</item>
+        <item name="autoSizeMaxTextSize">25sp</item>
+        <item name="autoSizeStepGranularity">1sp</item>
+    </style>
+</resources>
