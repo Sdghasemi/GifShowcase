@@ -11,6 +11,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.hirno.gif.R
 import com.hirno.gif.databinding.SearchFragmentBinding
 import com.hirno.gif.model.Gif
+import com.hirno.gif.model.state.MainScreenEvent.GifSelected
 import com.hirno.gif.model.state.MainScreenEvent.NavigateBackToRandom
 import com.hirno.gif.model.state.SearchScreenEffect
 import com.hirno.gif.model.state.SearchScreenEffect.ToggleClearButtonVisibility
@@ -55,18 +56,24 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>() {
 
         observeViewState()
         observeViewEffect()
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
 
         viewModel.event(ScreenLoad(searchedTerm))
     }
 
     private fun setupBackButton() = with(binding.back) {
         setOnClickListener {
-            mainViewModel.event(NavigateBackToRandom)
+            sharedViewModel.event(NavigateBackToRandom)
         }
     }
     private fun setupSearchBox() = with(binding.searchBox) {
         doAfterTextChanged { _ ->
-            viewModel.event(Search(searchedTerm))
+            if (hasFocus()) {
+                viewModel.event(Search(searchedTerm))
+            }
         }
     }
     private fun setupClearButton() = with(binding.clear) {
@@ -83,7 +90,9 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>() {
     }
 
     private fun setupSearchList() {
-        listAdapter = SearchAdapter()
+        listAdapter = SearchAdapter { selectedGif ->
+            sharedViewModel.event(GifSelected(gif = selectedGif))
+        }
         binding.list.apply {
             adapter = listAdapter
             addScrollListener { _, dy ->
@@ -128,6 +137,7 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>() {
 
     private fun showError(error: Error) = with(binding) {
         progress.hide()
+        swipeRefresh.isEnabled = true
         itemsContainer.isVisible = false
         showErrorMessage(error)
     }

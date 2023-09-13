@@ -11,7 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 abstract class BaseFragment<Binding : ViewBinding> : Fragment() {
 
-    protected val mainViewModel: MainViewModel by activityViewModel()
+    protected val sharedViewModel: MainViewModel by activityViewModel()
 
     private var _binding: Binding? = null
     protected val binding get() = _binding!!

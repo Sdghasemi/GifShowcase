@@ -9,12 +9,34 @@
         android:id="@+id/RandomFragment"
         android:name="com.hirno.gif.view.random.RandomFragment"
         tools:layout="@layout/random_fragment">
+        <action
+            android:id="@+id/navigateToSearch"
+            app:destination="@id/SearchFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/SearchFragment"
         android:name="com.hirno.gif.view.search.SearchFragment"
         tools:layout="@layout/search_fragment">
+        <action
+            android:id="@+id/navigateToDetails"
+            app:destination="@id/DetailsFragment"/>
+        <action
+            android:id="@+id/navigateToRandom"
+            app:popUpTo="@id/RandomFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/DetailsFragment"
+        android:name="com.hirno.gif.view.details.DetailsFragment"
+        tools:layout="@layout/details_fragment">
+        <argument
+            android:name="gif"
+            app:argType="com.hirno.gif.model.Gif"
+            app:nullable="false"/>
+        <action
+            android:id="@+id/navigateToSearch"
+            app:popUpTo="@id/SearchFragment"/>
     </fragment>
 
 </navigation>

@@ -18,31 +18,33 @@ data class GifArrayResponse(
 @Parcelize
 data class Gif(
     @Key("id")
-    var id: String = "",
+    val id: String = "",
     @Key("bitly_url")
-    var url: String = "",
+    val url: String = "",
     @Key("title")
-    var title: String = "",
+    private val _title: String = "",
     @Key("rating")
-    var rating: String = "",
+    val rating: String = "",
     @Key("images")
-    var images: Images = Images(),
+    val images: Images = Images(),
 ) : Parcelable {
+    val title get() = _title.takeUnless { it.isBlank() } ?: "No gif title"
+
     @Parcelize
     data class Images(
         @Key("original")
-        var original: ImageInfo = ImageInfo(),
+        val original: ImageInfo = ImageInfo(),
         @Key("original_still")
-        var originalStill: ImageInfo = ImageInfo(),
+        val originalStill: ImageInfo = ImageInfo(),
     ) : Parcelable {
         @Parcelize
         data class ImageInfo(
             @Key("width")
-            var width: Int = 0,
+            val width: Int = 0,
             @Key("height")
-            var height: Int = 0,
+            val height: Int = 0,
             @Key("url")
-            var url: String = "",
+            val url: String = "",
         ) : Parcelable {
             @IgnoredOnParcel
             val ratio get() = "$width:$height"

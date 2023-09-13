@@ -1,17 +1,18 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.androidx.navigation.safeargs)
     id("kotlin-parcelize")
 }
 
 android {
     namespace = "com.hirno.gif"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.hirno.gif"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

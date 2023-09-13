@@ -9,19 +9,27 @@ import com.hirno.gif.databinding.SearchGifItemBinding
 import com.hirno.gif.model.Gif
 import com.hirno.gif.util.inflater
 
-class SearchAdapter : ListAdapter<Gif, SearchAdapter.GifViewHolder>(GifDiffCallback()) {
+class SearchAdapter(
+    private val itemClickCallback: (Gif) -> Unit,
+) : ListAdapter<Gif, SearchAdapter.GifViewHolder>(GifDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = GifViewHolder(
         binding = SearchGifItemBinding.inflate(parent.inflater, parent, false)
     )
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.onBind(
+            model = getItem(position),
+            clickCallback = itemClickCallback
+        )
     }
 
     class GifViewHolder(
         private val binding: SearchGifItemBinding,
     ) : ViewHolder(binding.root) {
-        fun onBind(model: Gif) = with(binding.gif) {
+        fun onBind(model: Gif, clickCallback: (Gif) -> Unit) = with(binding.gif) {
+            setOnClickListener {
+                clickCallback(model)
+            }
             Glide.with(context)
                 .load(model.images.originalStill.url)
                 .into(this)

@@ -9,8 +9,8 @@ import com.hirno.gif.R
 import com.hirno.gif.data.source.repository.RandomRepository
 import com.hirno.gif.model.state.RandomScreenEvent
 import com.hirno.gif.model.state.RandomScreenEvent.Refresh
-import com.hirno.gif.model.state.RandomScreenEvent.ScreenDestroy
 import com.hirno.gif.model.state.RandomScreenEvent.ScreenLoad
+import com.hirno.gif.model.state.RandomScreenEvent.StartSearching
 import com.hirno.gif.model.state.RandomScreenEvent.SwipeToRefresh
 import com.hirno.gif.model.state.RandomScreenState
 import com.hirno.gif.model.state.RandomScreenState.Error
@@ -49,7 +49,7 @@ class RandomViewModel(
                     loadRandomGif()
                 else startRefreshTimer()
             }
-            ScreenDestroy -> stopRefreshTimer()
+            StartSearching -> stopRefreshTimer()
             Refresh, SwipeToRefresh -> loadRandomGif()
         }
     }
@@ -60,6 +60,7 @@ class RandomViewModel(
                 value = Loading
                 value = when (val result = repository.getRandomGif()) {
                     is NetworkResponse.Success -> {
+                        stopRefreshTimer()
                         startRefreshTimer()
                         Success(gif = result.body.data)
                     }
@@ -78,16 +79,18 @@ class RandomViewModel(
     }
 
     private fun startRefreshTimer() {
-        stopRefreshTimer()
-        refreshTimerJob = viewModelScope.launch {
-            while (true) {
-                delay(REFRESH_INTERVAL_MILLIS)
-                event(Refresh)
+        if (refreshTimerJob == null) {
+            refreshTimerJob = viewModelScope.launch {
+                while (true) {
+                    delay(REFRESH_INTERVAL_MILLIS)
+                    event(Refresh)
+                }
             }
         }
     }
 
     private fun stopRefreshTimer() {
         refreshTimerJob?.cancel()
+        refreshTimerJob = null
     }
 }

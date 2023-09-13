@@ -20,6 +20,7 @@ import com.hirno.gif.model.state.SearchScreenState
 import com.hirno.gif.network.response.NetworkResponse
 import com.hirno.gif.util.liveData
 import com.hirno.gif.view.search.SearchFragment
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
@@ -40,10 +41,13 @@ class SearchViewModel(
 
     val obtainEffect: LiveData<SearchScreenEffect> = viewAction
 
+    private var searchJob: Job? = null
+
     fun event(event: SearchScreenEvent) {
         when(event) {
             is ScreenLoad -> {
-                viewAction.postValue(ToggleSearchBoxFocus(requested = true))
+                val isFirstLoad = viewAction.value == null
+                if (isFirstLoad) viewAction.postValue(ToggleSearchBoxFocus(requested = true))
                 if (viewState.value?.let { it !is SearchScreenState.Success || it.term != event.term } != false)
                     searchForGifs(event.term)
             }
@@ -55,7 +59,8 @@ class SearchViewModel(
     }
 
     private fun searchForGifs(term: String?) {
-        viewModelScope.launch {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
             viewState.apply {
                 viewAction.value = ToggleClearButtonVisibility(visible = !term.isNullOrEmpty())
                 if (term.isNullOrBlank()) value = SearchScreenState.Success()

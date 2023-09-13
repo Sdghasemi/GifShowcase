@@ -41,7 +41,7 @@ sealed class RandomScreenState {
  */
 sealed class RandomScreenEvent {
     data object ScreenLoad : RandomScreenEvent()
-    data object ScreenDestroy : RandomScreenEvent()
+    data object StartSearching : RandomScreenEvent()
     data object Refresh : RandomScreenEvent()
     data object SwipeToRefresh : RandomScreenEvent()
 }

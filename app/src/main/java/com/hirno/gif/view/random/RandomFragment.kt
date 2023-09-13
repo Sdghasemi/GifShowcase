@@ -11,8 +11,8 @@ import com.hirno.gif.R
 import com.hirno.gif.databinding.RandomFragmentBinding
 import com.hirno.gif.model.Gif
 import com.hirno.gif.model.state.MainScreenEvent.StartSearch
-import com.hirno.gif.model.state.RandomScreenEvent.ScreenDestroy
 import com.hirno.gif.model.state.RandomScreenEvent.ScreenLoad
+import com.hirno.gif.model.state.RandomScreenEvent.StartSearching
 import com.hirno.gif.model.state.RandomScreenEvent.SwipeToRefresh
 import com.hirno.gif.model.state.RandomScreenState
 import com.hirno.gif.model.state.RandomScreenState.Error
@@ -34,28 +34,30 @@ class RandomFragment : BaseFragment<RandomFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.event(ScreenLoad)
-
         setupSearchBox()
         setupSwipeRefresh()
 
         observeViewState()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
 
-        viewModel.event(ScreenDestroy)
+        viewModel.event(ScreenLoad)
     }
 
     private fun setupSearchBox() = with(binding.searchBox) {
         setOnClickListener {
-            mainViewModel.event(StartSearch)
+            startSearch()
         }
         setOnLongClickListener {
-            mainViewModel.event(StartSearch)
+            startSearch()
             true
         }
+    }
+    private fun startSearch() {
+        viewModel.event(StartSearching)
+        sharedViewModel.event(StartSearch)
     }
     private fun setupSwipeRefresh() = with(binding.swipeRefresh) {
         setOnRefreshListener {
