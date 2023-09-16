@@ -1,7 +1,7 @@
 [versions]
 androidGradlePlugin = "8.1.1"
 kotlin = "1.9.10"
-androidXCore = "1.10.1"
+androidXCore = "1.12.0"
 androidXJunit = "1.1.5"
 androidXEspresso = "3.5.1"
 appcompat = "1.6.1"
@@ -20,7 +20,7 @@ junit4 = "4.13.2"
 robolectric = "4.9.2"
 androidXTest = "1.5.0"
 androidXJUnit = "1.1.5"
-androidXUiAutomator = "2.3.0-alpha04"
+fragmentTesting = "1.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCore" }
@@ -53,7 +53,7 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidXTest" }
 androidx-test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "androidXTest" }
 androidx-test-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidXJUnit" }
-androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "androidXUiAutomator" }
+androidx-fragment-testing = { group = "androidx.fragment", name = "fragment-testing", version.ref = "fragmentTesting" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
 koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4", version.ref = "koin" }
