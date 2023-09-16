@@ -86,7 +86,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.core.ktx)
     androidTestImplementation(libs.androidx.test.junit.ktx)
-    androidTestImplementation(libs.androidx.test.uiautomator)
+    debugImplementation(libs.androidx.fragment.testing)
     androidTestImplementation(libs.koin.android)
     androidTestImplementation(libs.koin.test)
     androidTestImplementation(libs.koin.test.junit4)

@@ -1,5 +1,7 @@
 package com.hirno.gif.viewmodel
 
+import androidx.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -40,7 +42,8 @@ class RandomViewModel(
 
     val obtainState: LiveData<RandomScreenState> = viewState
 
-    private var refreshTimerJob: Job? = null
+    @VisibleForTesting(otherwise = PRIVATE)
+    var refreshTimerJob: Job? = null
 
     fun event(event: RandomScreenEvent) {
         when(event) {
@@ -64,14 +67,14 @@ class RandomViewModel(
                         startRefreshTimer()
                         Success(gif = result.body.data)
                     }
-                    is NetworkResponse.ApiError -> Error.from(
-                        error = result.body.meta.message ?: R.string.an_error_occurred,
+                    is NetworkResponse.ApiError -> Error(
+                        text = result.body.meta.message,
                     )
-                    is NetworkResponse.NetworkError -> Error.from(
-                        error = R.string.failed_to_connect_to_remote_server,
+                    is NetworkResponse.NetworkError -> Error(
+                        resId = R.string.failed_to_connect_to_remote_server,
                     )
-                    is NetworkResponse.UnknownError -> Error.from(
-                        error = R.string.an_error_occurred,
+                    is NetworkResponse.UnknownError -> Error(
+                        resId = R.string.an_error_occurred,
                     )
                 }
             }

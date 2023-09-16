@@ -17,10 +17,8 @@ data class Error(
         @SerializedName("status")
         val status: Int = 0,
         @SerializedName("msg")
-        val message: String? = null,
+        val message: String = "",
         @SerializedName("response_id")
         val responseId: String = "",
-        @SerializedName("error_code")
-        val errorCode: String? = null,
     ) : Parcelable
 }

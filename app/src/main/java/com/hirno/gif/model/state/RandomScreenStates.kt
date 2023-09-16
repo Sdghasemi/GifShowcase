@@ -18,17 +18,7 @@ sealed class RandomScreenState {
         val text: String? = null,
         @StringRes
         val resId: Int? = null,
-    ) : RandomScreenState(), Parcelable {
-        companion object {
-            fun from(error: Any): Error {
-                return when (error) {
-                    is Int -> Error(resId = error)
-                    is String -> Error(text = error)
-                    else -> throw IllegalArgumentException("error message must be String or Int")
-                }
-            }
-        }
-    }
+    ) : RandomScreenState(), Parcelable
 
     @Parcelize
     data class Success(

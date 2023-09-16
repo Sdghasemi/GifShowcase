@@ -18,17 +18,7 @@ sealed class SearchScreenState {
         val text: String? = null,
         @StringRes
         val resId: Int? = null,
-    ) : SearchScreenState(), Parcelable {
-        companion object {
-            fun from(error: Any): Error {
-                return when (error) {
-                    is Int -> Error(resId = error)
-                    is String -> Error(text = error)
-                    else -> throw IllegalArgumentException("error message must be String or Int")
-                }
-            }
-        }
-    }
+    ) : SearchScreenState(), Parcelable
 
     @Parcelize
     data class Success(
@@ -49,9 +39,9 @@ sealed class SearchScreenEffect {
  * Events occurring in [SearchFragment] screen
  */
 sealed class SearchScreenEvent {
-    data class ScreenLoad(val term: String?) : SearchScreenEvent()
-    data class Search(val term: String?) : SearchScreenEvent()
-    data class SwipeToRefresh(val term: String?) : SearchScreenEvent()
+    data class ScreenLoad(val term: String? = null) : SearchScreenEvent()
+    data class Search(val term: String? = null) : SearchScreenEvent()
+    data class SwipeToRefresh(val term: String? = null) : SearchScreenEvent()
     data object ClearSearch : SearchScreenEvent()
     data object StartScroll : SearchScreenEvent()
 }
