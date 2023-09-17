@@ -1,5 +1,5 @@
 # GIF Showcase
-An application to view and search GIFs from [Giphy API](https://developers.giphy.com/docs/). The first screen displays a random GIF with title, URL, and a rating badge. Clicking on the search box above the screen enables you to search for your desired GIFs and selecting one from that screen takes you to the GIF details with its title, URL, and rating badge.
+An application to view and search GIFs from [Giphy API](https://developers.giphy.com/docs/). The first screen displays a random GIF every 10 seconds with title, URL, and a rating badge. Clicking on the search box above the screen enables you to search for your desired GIFs and selecting one from that screen takes you to the GIF details with its title, URL, and rating badge.
     
 ## Architecture and patterns
 - MVI    
