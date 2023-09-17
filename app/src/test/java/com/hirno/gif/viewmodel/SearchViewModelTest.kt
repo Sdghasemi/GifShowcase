@@ -27,6 +27,9 @@ import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class SearchViewModelTest : KoinTest {
@@ -113,6 +116,28 @@ class SearchViewModelTest : KoinTest {
         assertEquals(
             expected = SearchScreenState.Error(text = error),
             actual = response,
+        )
+    }
+
+    @Test
+    fun `test canceling previous search coroutine upon receiving new term`() {
+        FakeSearchDataSource.apply {
+            model = testArrayResponse
+            responseDelay = 1.seconds
+        }
+
+        viewModel.event(SearchScreenEvent.Search(term = "tes"))
+
+        val searchJob = viewModel.searchJob!!
+
+        assertTrue(
+            actual = searchJob.isActive
+        )
+
+        viewModel.event(SearchScreenEvent.Search(term = "test"))
+
+        assertFalse(
+            actual = searchJob.isActive
         )
     }
 

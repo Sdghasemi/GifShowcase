@@ -1,5 +1,7 @@
 package com.hirno.gif.viewmodel
 
+import androidx.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -43,7 +45,8 @@ class SearchViewModel(
 
     val obtainEffect: LiveData<SearchScreenEffect> = viewAction
 
-    private var searchJob: Job? = null
+    @VisibleForTesting(otherwise = PRIVATE)
+    var searchJob: Job? = null
 
     fun event(event: SearchScreenEvent) {
         when(event) {
